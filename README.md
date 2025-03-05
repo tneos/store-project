@@ -1,6 +1,6 @@
 <div align="center">
 
-# Full Stack E-Commerce Application
+# Full Stack E-Commerce Next.js Application
 
   <p>
 Full-stack app developed at section 20 of a Next.js, Typescript & React course I've been following. The app includes three types of users: guest user, authenticated and admin. Features include a search bar, a favourites and a cart page, login and register, a reviews component, checkout and payment, and add a product feature for admin users.
