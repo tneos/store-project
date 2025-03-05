@@ -12,15 +12,6 @@ Full-stack app developed at section 20 of a Next.js, Typescript & React course I
 ![](https://img.shields.io/github/issues/tneos/ellnot-online)
 ![](https://img.shields.io/github/last-commit/tneos/ellnot-online)
 
-<h4>
-    <a href="https://ellnot-shop.onrender.com/">View Demo</a>
-  <span> · </span>
-    <a href="https://github.com/SashenJayathilaka/Airbnb-Build/blob/master/README.md">Documentation</a>
-  <span> · </span>
-    <a href="https://github.com/SashenJayathilaka/Airbnb-Build/issues">Report Bug</a>
-  <span> · </span>
-    <a href="https://github.com/SashenJayathilaka/Airbnb-Build/issues">Request Feature</a>
-  </h4>
 </div>
 
 <br />
