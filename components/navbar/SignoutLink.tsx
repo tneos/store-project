@@ -12,7 +12,9 @@ function SignoutLink() {
 
   return (
     <SignOutButton>
-      <Link href="/" className="w-full text-left" onClick={handleLogout} />
+      <Link href="/" className="w-full text-left" onClick={handleLogout}>
+        Logout
+      </Link>
     </SignOutButton>
   );
 }

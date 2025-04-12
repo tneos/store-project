@@ -23,6 +23,7 @@ function LinksDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40 mx-2" align="start" sideOffset={20}>
+        {/* Display different menu depending on whether user is signed in or not */}
         <SignedOut>
           <DropdownMenuItem>
             <SignInButton mode="modal">
@@ -36,6 +37,7 @@ function LinksDropdown() {
             </SignUpButton>
           </DropdownMenuItem>
         </SignedOut>
+
         <SignedIn>
           {links.map(link => {
             return (
