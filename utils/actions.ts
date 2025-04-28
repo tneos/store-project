@@ -99,6 +99,7 @@ export const deleteProductAction = async (prevState: {productId: string}) => {
   // Check if user is admin
   await getAdminUser();
   try {
+    // Get info about deleted product
     const product = await db.product.delete({
       where: {
         id: productId,
