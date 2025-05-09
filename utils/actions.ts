@@ -34,7 +34,7 @@ export const fetchFeaturedProducts = async () => {
   return products;
 };
 
-export const fetchAllProducts = ({search = ""}: {search: string}) => {
+export const fetchAllProducts = async ({search = ""}: {search: string}) => {
   return db.product.findMany({
     where: {
       OR: [
@@ -173,6 +173,50 @@ export const updateProductImageAction = async (prevState: any, formData: FormDat
 
     revalidatePath(`/admin/products/${productId}/edit`);
     return {message: "Product image updated successfully!"};
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const fetchFavoriteId = async ({productId}: {productId: string}) => {
+  const user = await getAuthUser();
+  const favorite = await db.favorite.findFirst({
+    where: {
+      productId,
+      clerkId: user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return favorite?.id || null;
+};
+
+export const toggleFavoriteAction = async (prevState: {
+  productId: string;
+  favoriteId: string | null;
+  pathname: string;
+}) => {
+  const user = await getAuthUser();
+  const {productId, favoriteId, pathname} = prevState;
+
+  try {
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    } else {
+      await db.favorite.create({
+        data: {
+          productId,
+          clerkId: user.id,
+        },
+      });
+    }
+    revalidatePath(pathname);
+    return {message: favoriteId ? "removed from wishlist" : "added to wishlist"};
   } catch (error) {
     return renderError(error);
   }
