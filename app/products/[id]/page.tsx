@@ -8,13 +8,14 @@ import ProductRating from "@/components/single-product/ProductRating";
 import ShareButton from "@/components/single-product/ShareButton";
 import SubmitReview from "@/components/reviews/SubmitReview";
 import ProductReviews from "@/components/reviews/ProductReviews";
+import {use} from "react";
 
-async function page({params}: {params: {id: string}}) {
+function page({params}: {params: Promise<{id: string}>}) {
   // Await params -- Next 15
-  const paramString = await params;
-  const productId = await paramString.id;
-  const product = await fetchSingleProduct(productId);
-  const {name, image, company, description, price} = product;
+  const paramString = use(params);
+  const productId = paramString.id;
+  const product = fetchSingleProduct(productId);
+  const {name, image, company, description, price} = use(product);
   const poundsAmount = formatCurrency(price);
 
   return (

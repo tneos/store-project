@@ -3,6 +3,7 @@ import SectionTitle from "../global/SectionTitle";
 import ReviewCard from "./ReviewCard";
 
 async function ProductReviews({productId}: {productId: string}) {
+  // Fetch reviews from database
   const reviews = await fetchProductReviews(productId);
 
   return (

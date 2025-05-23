@@ -1,10 +1,16 @@
 import ProductsContainer from "@/components/products/ProductsContainer";
+import {use} from "react";
 
-function ProductsPage({searchParams}: {searchParams: {layout?: string; search?: string}}) {
+function ProductsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{layout?: string; search?: string}>;
+}) {
+  const params = use(searchParams);
   // Set default values if props undefined
-  const layout = searchParams.layout || "grid";
-  const search = searchParams.search || "";
-  console.log(searchParams);
+  const layout = params.layout || "grid";
+  const search = params.search || "";
+  // console.log(searchParams);
 
   return <ProductsContainer layout={layout} search={search} />;
 }
