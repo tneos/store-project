@@ -10,7 +10,6 @@ function ProductsPage({
   // Set default values if props undefined
   const layout = params.layout || "grid";
   const search = params.search || "";
-  // console.log(searchParams);
 
   return <ProductsContainer layout={layout} search={search} />;
 }

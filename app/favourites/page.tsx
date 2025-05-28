@@ -12,7 +12,5 @@ async function FavouritesPage() {
       <ProductsGrid products={favorites.map(favorite => favorite.product)} />
     </div>
   );
-
-  return <div>Favourites Page</div>;
 }
 export default FavouritesPage;
