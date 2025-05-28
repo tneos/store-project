@@ -1,5 +1,5 @@
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
-import {fetchSingleProduct} from "@/utils/actions";
+import {fetchSingleProduct, findExistingReview} from "@/utils/actions";
 import Image from "next/image";
 import {formatCurrency} from "@/utils/format";
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
@@ -8,15 +8,17 @@ import ProductRating from "@/components/single-product/ProductRating";
 import ShareButton from "@/components/single-product/ShareButton";
 import SubmitReview from "@/components/reviews/SubmitReview";
 import ProductReviews from "@/components/reviews/ProductReviews";
-import {use} from "react";
+import {auth} from "@clerk/nextjs/server";
 
-function page({params}: {params: Promise<{id: string}>}) {
+async function page({params}: {params: Promise<{id: string}>}) {
   // Await params -- Next 15
-  const paramString = use(params);
-  const productId = paramString.id;
+  const productId = (await params).id;
+  console.log(productId);
   const product = fetchSingleProduct(productId);
-  const {name, image, company, description, price} = use(product);
+  const {name, image, company, description, price} = await product;
   const poundsAmount = formatCurrency(price);
+  const {userId} = await auth();
+  const reviewDoesNotExist = userId && !(await findExistingReview(userId, productId));
 
   return (
     <section>
@@ -51,8 +53,10 @@ function page({params}: {params: Promise<{id: string}>}) {
         </div>
       </div>
       <ProductReviews productId={productId} />
-      <SubmitReview productId={productId} />
+      {reviewDoesNotExist && <SubmitReview productId={productId} />}
+      {/* <SubmitReview productId={productId} /> */}
     </section>
   );
 }
+
 export default page;
