@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@/utils/db";
-import {currentUser} from "@clerk/nextjs/server";
+import {currentUser, auth} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
 import {imageSchema, productSchema, reviewSchema, validateWithZodSchema} from "./schemas";
 import {deleteImage, uploadImage} from "./supabase";
@@ -332,3 +332,24 @@ export const findExistingReview = async (userId: string, productId: string) => {
     },
   });
 };
+
+export const fetchCartItems = async () => {
+  const {userId} = await auth();
+  const cart = await db.cart.findFirst({
+    where: {
+      clerkId: userId ?? "",
+    },
+    select: {
+      numItemsInCart: true,
+    },
+  });
+  // Return cart if there is a value
+  return cart?.numItemsInCart || 0;
+};
+export const fetchProduct = async () => {};
+export const fetchOrCreateCart = async () => {};
+export const updateOrCreateCartItem = async () => {};
+export const updateCart = async () => {};
+export const addToCartAction = async () => {};
+export const removeCartItemAction = async () => {};
+export const updateCartItemAction = async () => {};
