@@ -350,6 +350,8 @@ export const fetchProduct = async () => {};
 export const fetchOrCreateCart = async () => {};
 export const updateOrCreateCartItem = async () => {};
 export const updateCart = async () => {};
-export const addToCartAction = async () => {};
+export const addToCartAction = async (prevState: any, formData: FormData) => {
+  return {message: "product added to the cart"};
+};
 export const removeCartItemAction = async () => {};
 export const updateCartItemAction = async () => {};
