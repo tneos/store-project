@@ -1,3 +1,8 @@
+import {Prisma} from "@prisma/client";
+
+// Prisma generates relationship type
+export type CartItemWithProduct = Prisma.CartItemGetPayload<{include: {product: true}}>;
+
 export type actionFunction = (prevState: any, formData: FormData) => Promise<{message: string}>;
 
 export type CartItem = {
