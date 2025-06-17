@@ -478,7 +478,31 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
   }
   redirect("/cart");
 };
-export const removeCartItemAction = async () => {};
+export const removeCartItemAction = async (prevState: any, formData: FormData) => {
+  const user = await getAuthUser();
+  try {
+    const cartItemId = formData.get("id") as string;
+    // Access user's cart
+    const cart = await fetchOrCreateCart({
+      userId: user.id,
+      errorOnFailure: true,
+    });
+    // Delete cart item from database
+    await db.cartItem.delete({
+      where: {
+        id: cartItemId,
+        cartId: cart.id,
+      },
+    });
+    // Recalculate totals
+    await updateCart(cart);
+    // Purge cached data
+    revalidatePath("/cart");
+  } catch (error) {
+    return renderError(error);
+  }
+  return {message: "Item removed from cart"};
+};
 export const updateCartItemAction = async () => {};
 
 export const createOrderAction = async (prevState: any, formData: FormData) => {
