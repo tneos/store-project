@@ -433,6 +433,9 @@ export const updateCart = async (cart: Cart) => {
     include: {
       product: true,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   });
   let numItemsInCart = 0;
   let cartTotal = 0;
@@ -459,7 +462,7 @@ export const updateCart = async (cart: Cart) => {
     },
     include: includeProductClause,
   });
-  return currentCart;
+  return {cartItems, currentCart};
 };
 export const addToCartAction = async (prevState: any, formData: FormData) => {
   const user = await getAuthUser();
