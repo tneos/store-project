@@ -14,8 +14,8 @@ import {SignedOut, SignedIn, SignInButton, SignUpButton} from "@clerk/nextjs";
 import SignoutLink from "./SignoutLink";
 import {auth} from "@clerk/nextjs/server";
 
-function LinksDropdown() {
-  const {userId} = auth();
+async function LinksDropdown() {
+  const {userId} = await auth();
   const isAdmin = userId === process.env.ADMIN_USER_ID;
 
   return (
