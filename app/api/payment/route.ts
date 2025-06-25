@@ -1,5 +1,6 @@
-import {Stripe} from "stripe";
+import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
 import {type NextRequest} from "next/server";
 import db from "@/utils/db";
 
@@ -16,7 +17,7 @@ export const POST = async (req: NextRequest) => {
 
   const cart = await db.cart.findUnique({
     where: {
-      id: orderId,
+      id: cartId,
     },
     include: {
       cartItems: {
@@ -31,7 +32,7 @@ export const POST = async (req: NextRequest) => {
   if (!order || !cart) {
     return Response.json(null, {
       status: 404,
-      statusText: "Not found",
+      statusText: "Not found again",
     });
   }
 
@@ -40,7 +41,7 @@ export const POST = async (req: NextRequest) => {
     return {
       quantity: cartItem.amount,
       price_data: {
-        currency: "bgp",
+        currency: "gbp",
         product_data: {
           name: cartItem.product.name,
           images: [cartItem.product.image],
@@ -62,9 +63,10 @@ export const POST = async (req: NextRequest) => {
     return Response.json({clientSecret: session.client_secret});
   } catch (error) {
     console.log(error);
+
     return Response.json(null, {
       status: 500,
-      statusText: "Internal server error",
+      statusText: "Internal Server Error",
     });
   }
 };
