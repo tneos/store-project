@@ -1,5 +1,4 @@
 "use client";
-
 import {Card} from "../ui/card";
 import {FirstColumn, SecondColumn, FourthColumn} from "./CartItemColumns";
 import ThirdColumn from "./ThirdColumn";
