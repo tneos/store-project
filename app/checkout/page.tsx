@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import {useSearchParams} from "next/navigation";
 import React, {Suspense, useCallback} from "react";
