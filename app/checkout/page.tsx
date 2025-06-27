@@ -1,4 +1,3 @@
-"use client";
 import axios from "axios";
 import {useSearchParams} from "next/navigation";
 import React, {Suspense, useCallback} from "react";
@@ -7,9 +6,9 @@ import {EmbeddedCheckoutProvider, EmbeddedCheckout} from "@stripe/react-stripe-j
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE as string);
 
-export default function CheckoutPage() {
+export default async function Checkout() {
   // Get params
-  const searchParams = useSearchParams();
+  const searchParams = await useSearchParams();
   const orderId = searchParams.get("orderId");
   const cartId = searchParams.get("cartId");
 
@@ -28,11 +27,9 @@ export default function CheckoutPage() {
 
   return (
     <div id="checkout">
-      <Suspense fallback={<>Loading...</>}>
-        <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
-          <EmbeddedCheckout />
-        </EmbeddedCheckoutProvider>
-      </Suspense>
+      <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
+        <EmbeddedCheckout />
+      </EmbeddedCheckoutProvider>
     </div>
   );
 }
