@@ -7,7 +7,7 @@ import {EmbeddedCheckoutProvider, EmbeddedCheckout} from "@stripe/react-stripe-j
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE as string);
 
-export default function Checkout() {
+function Checkout() {
   // Get params
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
@@ -32,5 +32,13 @@ export default function Checkout() {
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense>
+      <Checkout />
+    </Suspense>
   );
 }
