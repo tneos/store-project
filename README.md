@@ -21,6 +21,7 @@ As I've updated Next.js to version 15, I worked individually in order to debug p
 
 - Typescript
 - Next.js
+- Tailwind
 - Clerk
 - Shadcn/ui
 - Stripe
